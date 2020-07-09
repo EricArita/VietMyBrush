@@ -1,0 +1,20 @@
+version: "2"
+
+services:
+  web:
+    build: .
+    image: web-template
+    command: npm run debug
+    volumes:
+      - ./dist:/server/dist
+    ports:
+      - "6000:6000"
+      - "9222:9222"
+#    links:
+#      - mongo
+#    depends_on:
+#      - mongo
+#  mongo:
+#    image: mongo
+#    ports:
+#      - "27017:27017"

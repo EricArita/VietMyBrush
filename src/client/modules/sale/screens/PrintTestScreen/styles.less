@@ -1,0 +1,173 @@
+@media print {
+  html,
+  body {
+    margin: 0;
+    padding: 0;
+    background: #fff;
+    font-size: 9.5pt;
+  }
+}
+
+.print-container {
+  // width: 420pt;
+  // min-height: 595pt;
+  // border: 1px solid black;
+  // padding-to: 28.346457pt;
+  font: Georgia, 'Times New Roman', Times, serif;
+  color: #000;
+  font-weight: 500;
+}
+
+.print-transform {
+  // transform: rotate(90deg);
+}
+
+.print-header {
+  display: flex;
+  justify-content: space-between;
+}
+
+.header-info-text {
+  font-size: 8pt;
+}
+
+.print-big-title {
+  font-size: 12pt;
+  text-align: center;
+}
+
+.client-info,
+.client-info-detail {
+  display: flex;
+  align-items: center;
+}
+
+.client-info {
+  justify-content: space-between;
+  align-items: center;
+}
+
+.client-code-text {
+  font-size: 8pt;
+  width: 10pt;
+  margin-right: 5pt;
+}
+
+.client-code-container {
+  border: 1pt solid black;
+  padding: 3pt;
+  margin-right: 5pt;
+}
+
+.client-name {
+  font-weight: bold;
+  font-size: 12pt;
+}
+.client-address {
+  text-align: right;
+  font-size: 8pt;
+  font-style: italic;
+}
+
+.product-table {
+  width: 100%;
+  font-size: 8pt;
+  .price {
+    text-align: right;
+  }
+}
+
+table.product-table {
+  border-collapse: collapse;
+  border: 1px solid black;
+
+  th {
+    border: 1px solid black;
+  }
+
+  td {
+    border-right: 1px solid black;
+  }
+
+  td.discount-section {
+    border-top: 1px solid black;
+    border-bottom: 1px solid black;
+    border-right: 0 none;
+  }
+
+  .upper-border-section {
+    border-top: 1px solid black;
+    // border-bottom: 1px solid black;
+    border-right: 0 none;
+  }
+
+  .bottom-border-section {
+    border-bottom: 1px solid black;
+  }
+
+  .no-border-right {
+    border-right: 0 none;
+    // text-align: left;
+  }
+}
+
+.stt {
+  width: 10pt;
+  text-align: right;
+}
+
+.product-code {
+  width: 12pt;
+}
+
+.product-item {
+  width: 50pt;
+}
+
+.dvt {
+  width: 30pt;
+}
+
+.product-quantity {
+  width: 30pt;
+}
+
+.product-total-price {
+  width: 40pt;
+}
+
+.product-price {
+  width: 20pt;
+}
+
+.product-table-header {
+  text-align: center;
+}
+
+.right-text {
+  text-align: right;
+}
+
+.center-text {
+  text-align: center;
+}
+
+.border-top {
+  border-top: 1px solid black;
+}
+
+.signing {
+  display: flex;
+  padding-left: 4pt;
+  padding-right: 4pt;
+  div {
+    font-size: 8pt;
+    flex: 1;
+  }
+  div:nth-child(2) {
+    text-align: center;
+  }
+  div:last-child {
+    text-align: right;
+  }
+}

@@ -1,0 +1,1337 @@
+tags:
+- name: users
+  description: Admin operations about users
+- name: roles
+  description: Admin operations about roles
+- name: auth
+  description: Auth operations for end-users
+- name: profile
+  description: User operations about their profile
+paths:
+  /auth:
+    post:
+      tags:
+      - auth
+      summary: Register / log in user
+      operationId: registerUser
+      requestBody:
+        $ref: '#/components/requestBodies/RegisterUserPayload'
+      responses:
+        200:
+          description: successful operation
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/User'
+        201:
+          description: successful operation
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/User'
+        400:
+          description: bad request
+        401:
+          description: Token is invalid or expired
+        500:
+          description: internal server error
+  /auth/send-reset-password-code:
+    post:
+      tags:
+        - auth
+      summary: Send reset password code
+      operationId: sendResetPasswordCode
+      requestBody:
+        $ref: '#/components/requestBodies/SendResetPasswordCodeBody'
+      responses:
+        200:
+          description: successful operation
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/SendResetPasswordCodeResponse'
+        201:
+          description: successful operation
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/SendResetPasswordCodeResponse'
+        400:
+          description: bad request
+        401:
+          description: Token is invalid or expired
+        500:
+          description: internal server error
+  /auth/check-password-code:
+    post:
+      tags:
+        - auth
+      summary: Check password reset code
+      operationId: checkPasswordResetCode
+      requestBody:
+        $ref: '#/components/requestBodies/CheckPasswordResetCodeBody'
+      responses:
+        200:
+          description: successful operation
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/CheckPasswordResetCodeResponse'
+        201:
+          description: successful operation
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/CheckPasswordResetCodeResponse'
+        400:
+          description: bad request
+        401:
+          description: Token is invalid or expired
+        500:
+          description: internal server error
+  /auth/reset-password:
+    post:
+      tags:
+        - auth
+      summary: Reset password
+      operationId: reset Password
+      requestBody:
+        $ref: '#/components/requestBodies/ResetPasswordBody'
+      responses:
+        200:
+          description: successful operation
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ResetPasswordResponse'
+        201:
+          description: successful operation
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ResetPasswordResponse'
+        400:
+          description: bad request
+        401:
+          description: Token is invalid or expired
+        500:
+          description: internal server error
+  /auth/log-out:
+    post:
+      tags:
+        - auth
+      summary: Log out
+      operationId: logOut
+      requestBody:
+        $ref: '#/components/requestBodies/LogOutBody'
+      responses:
+        200:
+          description: successful operation
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/LogOutResponse'
+        201:
+          description: successful operation
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/LogOutResponse'
+        400:
+          description: bad request
+        401:
+          description: Token is invalid or expired
+        500:
+          description: internal server error        
+  /permissions:
+    get:
+      tags:
+      - permissions
+      summary: Find permissions list of all modules
+      operationId: findPermissions
+      responses:
+        200:
+          description: successful operation
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/FindPermissionsResult'
+        201:
+          description: successful operation
+        400:
+          description: bad request
+        401:
+          description: Token is invalid or expired
+        500:
+          description: internal server error
+  /roles/check-name-exist/{roleName}:
+    get:
+      tags:
+      - roles
+      summary: Check role name exist
+      operationId: checkRoleNameExist
+      parameters:
+      - name: roleName
+        in: path
+        description: roleName
+        required: true
+        schema:
+          type: string
+      responses:
+        200:
+          description: successful operation
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/CheckRoleNameExistResult'
+        400:
+          description: bad request
+        401:
+          description: Token is invalid or expired
+        500:
+          description: internal server error
+      security:
+      - Bearer: []
+  /roles/get-by-name/{roleName}:
+    get:
+      tags:
+      - roles
+      summary: get role by name
+      operationId: getRoleByName
+      parameters:
+      - name: roleName
+        in: path
+        description: roleName
+        required: true
+        schema:
+          type: string
+      responses:
+        200:
+          description: successful operation
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Role'
+        400:
+          description: bad request
+        401:
+          description: Token is invalid or expired
+        500:
+          description: internal server error
+      security:
+      - Bearer: []
+  /roles/get-all:
+    get:
+      tags:
+      - roles
+      summary: Find all roles
+      operationId: getAllRoles
+      responses:
+        200:
+          description: successful operation
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/GetAllRolesResult'
+        400:
+          description: bad request
+        401:
+          description: Token is invalid or expired
+        500:
+          description: internal server error
+  /roles/{roleId}:
+    get:
+      tags:
+      - roles
+      summary: Find role by id
+      operationId: findRoleById
+      parameters:
+      - name: roleId
+        in: path
+        description: roleId
+        required: true
+        schema:
+          type: string
+      responses:
+        200:
+          description: successful operation
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Role'
+        400:
+          description: bad request
+        401:
+          description: Token is invalid or expired
+        500:
+          description: internal server error
+      security:
+      - Bearer: []
+    patch:
+      tags:
+      - roles
+      summary: Update role
+      operationId: updateRole
+      parameters:
+      - name: roleId
+        in: path
+        description: roleId
+        required: true
+        schema:
+          type: string
+      requestBody:
+        $ref: '#/components/requestBodies/UpdateRolePayload'
+      responses:
+        200:
+          description: successful operation
+        201:
+          description: successful operation
+        400:
+          description: bad request
+        401:
+          description: Token is invalid or expired
+        500:
+          description: internal server error
+      security:
+      - Bearer: []
+  /roles:
+    get:
+      tags:
+      - roles
+      summary: Find roles
+      operationId: findRoles
+      parameters:
+      - name: search
+        in: query
+        description: search
+        required: false
+        schema:
+          type: string
+      - name: permissions
+        in: query
+        description: filter by permissions
+        required: false
+        schema:
+          type: array
+          items:
+            type: string
+      - name: first
+        in: query
+        description: number of records returned
+        required: true
+        schema:
+          type: number
+      - name: sortBy
+        in: query
+        description: sort field
+        required: true
+        schema:
+          type: string
+      - name: before
+        in: query
+        description: before token
+        required: false
+        schema:
+          type: string
+      - name: after
+        in: query
+        description: after token
+        required: false
+        schema:
+          type: string
+      responses:
+        200:
+          description: successful operation
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/FindRolesResult'
+        400:
+          description: bad request
+        401:
+          description: unauthorize
+        500:
+          description: internal server error
+      security:
+      - Bearer: []
+    post:
+      tags:
+      - roles
+      summary: Create role
+      operationId: createRole
+      requestBody:
+        $ref: '#/components/requestBodies/CreateRolePayload'
+      responses:
+        200:
+          description: successful operation
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Role'
+        201:
+          description: successful operation
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Role'
+        400:
+          description: bad request
+        401:
+          description: Token is invalid or expired
+        500:
+          description: internal server error
+      security:
+      - Bearer: []
+  /profile/{userId}:
+    get:
+      tags:
+      - profile
+      summary: Find profile
+      operationId: findProfile
+      parameters:
+      - name: userId
+        in: path
+        description: userId
+        required: true
+        schema:
+          type: string
+      responses:
+        200:
+          description: successful operation
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/User'
+        400:
+          description: bad request
+        401:
+          description: Token is invalid or expired
+        500:
+          description: internal server error
+      security:
+      - Bearer: []
+    patch:
+      tags:
+      - profile
+      summary: Update profile
+      operationId: updateProfile
+      parameters:
+      - name: userId
+        in: path
+        description: userId
+        required: true
+        schema:
+          type: string
+      requestBody:
+        $ref: '#/components/requestBodies/UpdateProfilePayload'
+      responses:
+        200:
+          description: successful operation
+        201:
+          description: successful operation
+        400:
+          description: bad request
+        401:
+          description: Token is invalid or expired
+        500:
+          description: internal server error
+      security:
+      - Bearer: []
+  /users/check-email-exist/{email}:
+    get:
+      tags:
+      - users
+      summary: Check email exist
+      operationId: checkEmailExist
+      parameters:
+      - name: email
+        in: path
+        description: email
+        required: true
+        schema:
+          type: string
+      responses:
+        200:
+          description: successful operation
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/CheckEmailExistResult'
+        400:
+          description: bad request
+        401:
+          description: Token is invalid or expired
+        500:
+          description: internal server error
+      security:
+      - Bearer: []
+  /users/analytic/{id}:
+    get:
+      tags:
+      - users
+      summary: Get user analytic
+      operationId: getUserAnalytic
+      parameters:
+      - name: id
+        in: path
+        description: user id
+        required: true
+        schema:
+          type: string
+      responses:
+        200:
+          description: successful operation
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  data:
+                    type: object
+                    properties:
+                      totalClass:
+                        type: number
+                      totalStudent:
+                        type: number
+                      joinedClass:
+                        type: number
+                      joinedLesson:
+                        type: number
+        400:
+          description: bad request
+        401:
+          description: Token is invalid or expired
+        500:
+          description: internal server error
+      security:
+      - Bearer: []
+  /users/get-by-apple-id/{id}:
+    get:
+      tags:
+      - users
+      summary: Get user by apple id
+      operationId: getUserByAppleId
+      parameters:
+      - name: id
+        in: path
+        description: user id
+        required: true
+        schema:
+          type: string
+      responses:
+        200:
+          description: successful operation
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/User'
+        400:
+          description: bad request
+        401:
+          description: Token is invalid or expired
+        500:
+          description: internal server error
+      security:
+      - Bearer: []
+  /users:
+    get:
+      tags:
+      - users
+      summary: Find users
+      operationId: findUsers
+      parameters:
+      - name: search
+        in: query
+        description: search
+        required: false
+        schema:
+          type: string
+      - name: roles
+        in: query
+        description: filter by roles
+        required: false
+        schema:
+          type: array
+          items:
+            type: string
+      - name: filter
+        in: query
+        description: custom filter
+        required: false
+        schema:
+          type: array
+          items:
+            type: object
+      - name: first
+        in: query
+        description: number of records returned
+        required: true
+        schema:
+          type: number
+      - name: sortBy
+        in: query
+        description: sort field
+        required: true
+        schema:
+          type: string
+      - name: before
+        in: query
+        description: before token
+        required: false
+        schema:
+          type: string
+      - name: after
+        in: query
+        description: after token
+        required: false
+        schema:
+          type: string
+      - name: availability
+        in: query
+        description: availability filter
+        required: false
+        schema:
+          type: object
+          properties:
+            timeZone:
+              type: number
+            timeList:
+              type: array
+              items:
+                type: number
+            weekDay:
+              type: array
+              items:
+                type: number
+      - name: specificTime
+        in: query
+        description: specific time filter
+        required: false
+        schema:
+          type: array
+          items:
+            type: number
+      responses:
+        200:
+          description: successful operation
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/FindUsersResult'
+        400:
+          description: bad request
+        401:
+          description: unauthorize
+        500:
+          description: internal server error
+      security:
+      - Bearer: []
+    post:
+      tags:
+      - users
+      summary: Create user
+      operationId: createUser
+      requestBody:
+        $ref: '#/components/requestBodies/CreateUserPayload'
+      responses:
+        200:
+          description: successful operation
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/User'
+        201:
+          description: successful operation
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/User'
+        400:
+          description: bad request
+        401:
+          description: Token is invalid or expired
+        500:
+          description: internal server error
+      security:
+      - Bearer: []
+  /users/get-all-users:
+    get:
+      tags:
+      - users
+      summary: Get all users
+      operationId: getAllUsers
+      parameters:
+      responses:
+        200:
+          description: successful operation
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/FindAllUsersResult'
+        400:
+          description: bad request
+        401:
+          description: unauthorize
+        500:
+          description: internal server error
+      security:
+      - Bearer: []
+  /users/get-permissions/{id}:
+    get:
+      tags:
+      - users
+      summary: Find permissions by user id
+      operationId: getPermissions
+      parameters:
+      - name: id
+        in: path
+        description: userId
+        required: true
+        schema:
+          type: string
+      responses:
+        200:
+          description: successful operation
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/PermissionsResult'
+        400:
+          description: bad request
+        401:
+          description: Token is invalid or expired
+        500:
+          description: internal server error
+      security:
+      - Bearer: []
+  /users/{userId}:
+    get:
+      tags:
+      - users
+      summary: Find user by id
+      operationId: findUserById
+      parameters:
+      - name: userId
+        in: path
+        description: userId
+        required: true
+        schema:
+          type: string
+      responses:
+        200:
+          description: successful operation
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/User'
+        400:
+          description: bad request
+        401:
+          description: Token is invalid or expired
+        500:
+          description: internal server error
+      security:
+      - Bearer: []
+    patch:
+      tags:
+      - users
+      summary: Update user
+      operationId: updateUser
+      parameters:
+      - name: userId
+        in: path
+        description: userId
+        required: true
+        schema:
+          type: string
+      requestBody:
+        $ref: '#/components/requestBodies/UpdateUserPayload'
+      responses:
+        200:
+          description: successful operation
+        201:
+          description: successful operation
+        400:
+          description: bad request
+        401:
+          description: Token is invalid or expired
+        500:
+          description: internal server error
+      security:
+      - Bearer: []
+components:
+  schemas:
+    GetAllRolesResult:
+      type: object
+      properties:
+        roles:
+          type: array
+          items:
+            $ref: '#/components/schemas/Role'
+    CheckRoleNameExistResult:
+      type: object
+      properties:
+        roleNameExist:
+          type: boolean
+    FindPermissionsResult:
+      type: any
+    RegisterUserPayload:
+      type: object
+      properties:
+        idToken:
+          type: string
+        role:
+          type: string
+          example: tutor / student
+        name:
+          type: string
+        phoneNumber:
+          type: string
+        email:
+          type: string
+        gender:
+          type: string
+        dob:
+          type: number
+        password:
+          type: string
+        avatar:
+          type: string
+        address:
+          type: string
+        country:
+          type: string
+        timeZone:
+          type: string
+        zipCode:
+          type: string
+        appleId:
+          type: string
+    FindRolesResult:
+      type: object
+      properties:
+        data:
+          type: array
+          items:
+            $ref: '#/components/schemas/Role'
+        before:
+          type: string
+        after:
+          type: string
+    ActivateRolePayload:
+      type: object
+      properties:
+        operation:
+          type: string
+          example: activate
+          enum: [activate]
+    DeactivateRolePayload:
+      type: object
+      properties:
+        operation:
+          type: string
+          example: deactivate
+          enum: [deactivate]
+    UpdateRolePayload:
+      type: object
+      properties:
+        operation:
+          type: string
+          example: update
+          enum: [updateDetail]
+        payload:
+          type: object
+          properties:
+            name:
+              type: string
+              example: admin
+            description:
+              type: string
+              example: admin who can view, create, edit, delete
+            permissions:
+              type: array
+              items:
+                type: string
+              example:
+              - user.create
+              - user.delete
+    Role:
+      type: object
+      properties:
+        _id:
+          type: string
+          example: 4ddde319cf4cc467858e8152b58b3283
+        name:
+          type: string
+          example: admin
+        description:
+          type: string
+          example: admin who can view, create, edit, delete
+        isActive:
+          type: boolean;
+          example: true
+        permissions:
+          type: array
+          items:
+            type: string
+          example:
+          - user.create
+          - user.delete
+    CreateRolePayload:
+      type: object
+      properties:
+        name:
+          type: string
+          example: admin
+        description:
+          type: string
+          example: admin
+        permissions:
+          type: array
+          items:
+            type: string
+          example:
+          - user.create
+          - user.delete
+    CheckEmailExistResult:
+      type:
+        object
+      properties:
+        emailExist:
+          type: boolean
+        loginDetail:
+          type: object
+    FindUsersResult:
+      type: object
+      properties:
+        data:
+          type: array
+          items:
+            $ref: '#/components/schemas/User'
+        before:
+          type: string
+        after:
+          type: string
+    FindAllUsersResult:
+      type: object
+      properties:
+        data:
+          type: array
+          items:
+            $ref: '#/components/schemas/User'
+    PermissionsResult:
+      type: object
+      properties:
+        data:
+          type: array
+          items:
+            type: string
+    FacebookLogin:
+      type: object
+      properties:
+        uid:
+          type: string
+        email:
+          type: string
+        provider:
+          type: string
+          enum: [facebook]
+    GoogleLogin:
+      type: object
+      properties:
+        uid:
+          type: string
+        email:
+          type: string
+        provider:
+          type: string
+          enum: [google]
+    PhoneLogin:
+      type: object
+      properties:
+        phoneNo:
+          type: string
+        provider:
+          type: string
+          enum: [phone]
+    EmailLogin:
+      type: object
+      properties:
+        email:
+          type: string
+        provider:
+          type: string
+          enum: [email]
+    User:
+      type: object
+      properties:
+        _id:
+          type: string
+          example: 4ddde319cf4cc467858e8152b58b3283
+        id:
+          type: string
+          example: 4ddde319cf4cc467858e8152b58b3283
+        email:
+          type: string
+          example: thinhtran@techkids.io
+        familyName:
+          type: string
+          example: Nguyen
+        givenName:
+          type: string
+          example: Van A
+        fullName:
+          type: string
+          example: Nguyen Van A
+        phoneNumber:
+          type: string
+          example: +84363394468
+        phoneID:
+          type: string
+          example: +84
+        about:
+          type: string
+          example: I am a teacher
+        address:
+          type: string
+          example: so 35, hem 6, quan 10, TP.HCM
+        description:
+          type: string
+          example: Yeu the thao, thich choi game, ...
+        avatar:
+          type: string
+          example: 4ddde319cf4cc467858e8152b58b3283.jpg
+        dob:
+          type: number
+          example: 123123123
+        language:
+          type: object
+          properties:
+            name:
+              type: string
+              example: Vietnamese
+            shortCode:
+              type: string
+              example: VN
+        gender:
+          type: string
+          example: MALE / FEMALE
+        zipCode:
+          type: string
+          example: 115000
+        timeZone:
+          type: string
+          example: GMT +7
+        images:
+          type: array
+          items:
+            type: string
+        certificate:
+          type: object
+          properties:
+            title:
+              type: string
+            subject:
+              type: string
+            from:
+              type: number
+            to:
+              type: number
+        categories:
+          type: array
+          items:
+            type: object
+            properties:
+              _id:
+                type: string
+              title:
+                type: string
+        teacherDescription:
+          type: string
+        teachingMaterial:
+          type: string
+        introductionVideo:
+          type: string
+        deviceToken:
+          type: array
+        rating:
+          type: number
+        loginDetail:
+          type: object
+          schema:
+            oneOf:
+            - $ref: '#/components/schemas/FacebookLogin'
+            - $ref: '#/components/schemas/GoogleLogin'
+            - $ref: '#/components/schemas/PhoneLogin'
+            - $ref: '#/components/schemas/EmailLogin'
+        roles:
+          type: array
+          items:
+            type: string
+          example:
+          - 4ddde319cf4cc467858e8152b58b3283
+          - 4ddde319cf4cc467858e8152b58b3284
+        completeSignUp:
+          type: boolean
+          example: false
+        hourlyRate:
+          type: number
+          example: 0
+        rating:
+          type: number
+          example: 4.2
+        campusId:
+          type: string
+        isActive:
+          type: boolean
+          example: true
+        createdAt:
+          type: number
+        createdBy:
+          type: number
+        favoriteTeachers:
+          type: array
+        favoriteClasses:
+          type: array
+    UpdateUserPayload:
+      type: object
+      properties:
+        operation:
+          type: string
+          enum: [updateDetail]
+        payload:
+          type: object
+          properties:
+            roles:
+              type: array
+              items:
+                type: string
+              example:
+              - 4ddde319cf4cc467858e8152b58b3283
+              - 4ddde319cf4cc467858e8152b58b3333
+            familyName:
+              type: string
+              example: Nguyen
+            givenName:
+              type: string
+              example: Van A
+            fullName:
+              type: string
+              example: Nguyen Van A
+            avatar:
+              type: string
+              example: uuid.jpg
+            email:
+              type: string
+              example: tienloitechkids@gmail.com
+            favoriteTeachers:
+              type: array
+            favoriteClasses:
+              type: array
+    ChangePasswordPayload:
+      type: object
+      properties:
+        newPassword:
+          type: string
+    UpdateProfilePayload:
+      type: object
+      properties:
+        operation:
+          type: string
+          enum: [updateDetail]
+        payload:
+          type: object
+          properties:
+            familyName:
+              type: string
+              example: Nguyen
+            givenName:
+              type: string
+              example: Van A
+            phoneNo:
+              type: string
+              example: +843394465
+            email:
+              type: string
+              example: loitechkids@gmail.com
+            address:
+              type: string
+              example: Hem 6, quan 10, TP.HCM
+            description:
+              type: string
+              example: Yeu the thao, thich am nhac, ...
+    ActivateUserPayload:
+      type: object
+      properties:
+        operation:
+          type: string
+          enum: [activate]
+    DeactivateUserPayload:
+      type: object
+      properties:
+        operation:
+          type: string
+          enum: [deactivate]
+    UpdateAvatarPayload:
+      type: object
+      properties:
+        operation:
+          type: string
+          enum: [updateAvatar]
+        data:
+          type: object
+          properties:
+            avatarUrl:
+              type: string
+    CreateUserPayload:
+      type: object
+      properties:
+        email:
+          type: string
+        password:
+          type: string
+        roles:
+          type: array
+          items:
+            type: string
+          example:
+          - 4ddde319cf4cc467858e8152b58b3283
+          - 4ddde319cf4cc46785812342b58b3284
+        familyName:
+          type: string
+          example: Nguyen
+        givenName:
+          type: string
+          example: Van A
+    SendResetPasswordCodeResponse:
+      type: object
+      properties:
+        code:
+          type: number
+          example: 0 / 1
+        message:
+          type: string
+          example: "Reset passcode sent!"
+    CheckPasswordResetCodeResponse:
+      type: object
+      properties:
+        code:
+          type: number
+          example: 0 / 1
+        message:
+          type: string
+          example: "Code is ok"
+    SendResetPasswordCodeBody:
+      type: object
+      properties:
+        email:
+          type: string
+    CheckPasswordResetCodeBody:
+      type: object
+      properties:
+        email:
+          type: string
+        code:
+          type: string
+    ResetPasswordBody:
+      type: object
+      properties:
+        email:
+          type: string
+        code:
+          type: string
+        password:
+          type: string
+    ResetPasswordResponse:
+      type: object
+      properties:
+        code:
+          type: number
+        message:
+          type: string
+    LogOutBody:
+      type: object
+      properties:
+        id:
+          type: string
+        deviceToken:
+          type: string
+    LogOutResponse:
+      type: object
+      properties:
+        code:
+          type: number
+        message:
+          type: string
+  requestBodies:
+    RegisterUserPayload:
+      description: Register user params
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/RegisterUserPayload'
+    UpdateRolePayload:
+      description: Update role params
+      content:
+        application/json:
+          schema:
+            oneOf:
+            - $ref: '#/components/schemas/UpdateRolePayload'
+            - $ref: '#/components/schemas/ActivateRolePayload'
+            - $ref: '#/components/schemas/DeactivateRolePayload'
+    CreateRolePayload:
+      description: Create role params
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/CreateRolePayload'
+    CreateUserPayload:
+      description: Create user params
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/CreateUserPayload'
+      required: true
+    UpdateProfilePayload:
+      description: Update profile params
+      content:
+        application/json:
+          schema:
+            oneOf:
+            - $ref: '#/components/schemas/UpdateProfilePayload'
+            - $ref: '#/components/schemas/UpdateAvatarPayload'
+            - $ref: '#/components/schemas/ChangePasswordPayload'
+      required: true
+    UpdateUserPayload:
+      description: Update user params
+      content:
+        application/json:
+          schema:
+            oneOf:
+            - $ref: '#/components/schemas/UpdateUserPayload'
+            - $ref: '#/components/schemas/ActivateUserPayload'
+            - $ref: '#/components/schemas/DeactivateUserPayload'
+      required: true
+    SendResetPasswordCodeBody:
+      description: Send Reset Password Code Body
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/SendResetPasswordCodeBody'
+    CheckPasswordResetCodeBody:
+      description: Check password reset code body
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/CheckPasswordResetCodeBody'
+    ResetPasswordBody:
+      description: Reset password body
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/ResetPasswordBody'
+  securitySchemes:
+    Bearer:
+      type: apiKey
+      name: Authorization
+      in: header

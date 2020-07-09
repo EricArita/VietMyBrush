@@ -1,0 +1,6 @@
+{
+  "watch": ["src/**/*.ts", "pages/**/*.ts"],
+  "execMap": {
+    "ts": "ts-node -r tsconfig-paths/register --typeCheck --compilerOptions '{\"module\":\"commonjs\"}'"
+  }
+}

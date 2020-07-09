@@ -1,0 +1,276 @@
+tags:
+  - name: notification
+    description: Operations about notification
+paths:
+  /notification:
+    get:
+      tags:
+        - notification
+      summary: Find all notification
+      operationId: findNotifications
+      parameters:
+        - name: operation
+          in: query
+          description: operation
+          required: false
+          schema:
+            type: string
+        - name: search
+          in: query
+          description: search
+          required: false
+          schema:
+            type: string
+        - name: filter
+          in: query
+          description: filters
+          required: false
+          schema:
+            type: array
+            items:
+              type: object
+        - name: first
+          in: query
+          description: number of records returned
+          required: false
+          schema:
+            type: number
+        - name: sortBy
+          in: query
+          description: sort field
+          required: false
+          schema:
+            type: string
+        - name: before
+          in: query
+          description: before token
+          required: false
+          schema:
+            type: string
+        - name: after
+          in: query
+          description: after token
+          required: false
+          schema:
+            type: string
+      responses:
+        200:
+          description: successful operation
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/FindNotificationsResult'
+        400:
+          description: bad request
+        401:
+          description: unauthorize
+        500:
+          description: internal server error
+      security:
+        - Bearer: []
+    post:
+      tags:
+        - notification
+      summary: Create Notification
+      operationId: createNotification
+      requestBody:
+        $ref: '#/components/requestBodies/CreateNotificationPayload'
+      responses:
+        200:
+          description: successful operation
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Notification'
+        201:
+          description: successful operation
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Notification'
+        400:
+          description: bad request
+        401:
+          description: Token is invalid or expired
+        500:
+          description: internal server error
+      security:
+        - Bearer: []
+  /notification/{notificationId}:
+    get:
+      tags:
+        - notification
+      summary: Find notification by id
+      operationId: findNotificationById
+      parameters:
+        - name: notificationId
+          in: path
+          description: notificationId
+          required: true
+          schema:
+            type: string
+      responses:
+        200:
+          description: successful operation
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Notification'
+        400:
+          description: bad request
+        401:
+          description: Token is invalid or expired
+        500:
+          description: internal server error
+      security:
+        - Bearer: []
+    patch:
+      tags:
+        - notification
+      summary: Update notification
+      operationId: updateNotification
+      parameters:
+        - name: notificationId
+          in: path
+          description: notificationId
+          required: true
+          schema:
+            type: string
+      requestBody:
+        $ref: '#/components/requestBodies/UpdateNotificationPayload'
+      responses:
+        200:
+          description: successful operation
+        201:
+          description: successful operation
+        400:
+          description: bad request
+        401:
+          description: Token is invalid or expired
+        500:
+          description: internal server error
+      security:
+        - Bearer: []
+    delete:
+      tags:
+        - notification
+      summary: Delete notification
+      operationId: deleteNotification
+      parameters:
+        - name: notificationId
+          in: path
+          description: notificationId
+          required: true
+          schema:
+            type: string
+      responses:
+        200:
+          description: successful operation
+        400:
+          description: bad request
+        401:
+          description: Token is invalid or expired
+        500:
+          description: internal server error
+      security:
+        - Bearer: []
+components:
+  schemas:
+    CreateNotificationPayload:
+      type: object
+      properties:
+        title:
+          type: string
+        data:
+          type: object
+        notificationType:
+          type: string
+        from:
+          type: string
+        to:
+          type: string
+        notifyAt:
+          type: number
+        channel:
+          type: string
+        read:
+          type: boolean
+    UpdateNotificationPayload:
+      type: object
+      properties:
+        id:
+          type: string
+        _id:
+          type: string
+        title:
+          type: string
+        data:
+          type: object
+        notificationType:
+          type: string
+        from:
+          type: string
+        to:
+          type: string
+        notifyAt:
+          type: number
+        channel:
+          type: string
+        read:
+          type: boolean
+    FindNotificationsResult:
+      type: object
+      properties:
+        data:
+          type: array
+          items:
+            $ref: '#/components/schemas/Notification'
+        before:
+          type: string
+        after:
+          type: string
+    Notification:
+      type: object
+      properties:
+        id:
+          type: string
+        _id:
+          type: string
+        title:
+          type: string
+        data:
+          type: object
+        notificationType:
+          type: string
+        from:
+          type: string
+        to:
+          type: string
+        notifyAt:
+          type: number
+        channel:
+          type: string
+        read:
+          type: boolean
+        createdAt:
+          type: number
+        updatedAt:
+          type: number
+  requestBodies:
+    CreateNotificationPayload:
+      description: Create notification payload
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/CreateNotificationPayload'
+    UpdateNotificationPayload:
+      description: Update notification payload
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/UpdateNotificationPayload'
+  securitySchemes:
+    Bearer:
+      type: apiKey
+      name: Authorization
+      in: header

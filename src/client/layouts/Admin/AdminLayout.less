@@ -1,0 +1,45 @@
+.logo {
+  margin-right: 24px;
+}
+.admin-container {
+  .ant-menu-item {
+    font-size: 16px;
+  }
+}
+
+.login-link {
+  font-weight: 500;
+  font-size: 16px;
+  line-height: 18px;
+  margin-right: 40px;
+  color: #707070;
+}
+
+:global {
+  .top-nav-menu li.ant-menu-item {
+    height: 64px;
+    line-height: 64px;
+  }
+  .drawer .drawer-content {
+    background: #001529;
+  }
+  .ant-menu-inline-collapsed {
+    & > .ant-menu-item .sider-menu-item-img + span,
+    & > .ant-menu-item-group > .ant-menu-item-group-list > .ant-menu-item .sider-menu-item-img + span,
+    & > .ant-menu-submenu > .ant-menu-submenu-title .sider-menu-item-img + span {
+      max-width: 0;
+      display: inline-block;
+      opacity: 0;
+    }
+  }
+  .ant-menu-item .sider-menu-item-img + span,
+  .ant-menu-submenu-title .sider-menu-item-img + span {
+    transition: opacity 0.3s ease-in-out, width 0.3s ease-in-out;
+    opacity: 1;
+  }
+  .ant-drawer-left {
+    .ant-drawer-body {
+      padding: 0;
+    }
+  }
+}

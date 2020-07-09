@@ -1,0 +1,75 @@
+.header-mobile {
+  display: none;
+}
+
+.authenticate-group {
+  display: block;
+}
+
+.authenticate-group-mobile {
+  display: none;
+}
+
+.login-link {
+  cursor: pointer;
+}
+
+@media screen and (max-width: 1000px) {
+  .header {
+    display: none;
+  }
+  .authenticate-group {
+    display: none;
+  }
+  .authenticate-group-mobile {
+    display: block;
+  }
+  .header-mobile {
+    display: flex;
+    flex: 1;
+    background: #ffffff;
+    .header-menu {
+      flex: 1;
+      display: flex;
+      flex-direction: row;
+      align-items: center;
+      justify-content: space-between;
+      .header-logo {
+        img {
+          height: 30px;
+        }
+      }
+      .menu-button {
+        display: flex;
+        width: 30px;
+        align-items: center;
+        justify-content: center;
+        width: 30px;
+        height: 30px;
+        cursor: pointer;
+        text-align: center;
+        // padding: 10px 12px;
+        border: 0.5px solid #d3d3d3;
+        border-radius: 2px;
+        color: #c4c4c4;
+        font-size: 20px;
+      }
+    }
+  }
+  .drawer-container {
+    .ant-form-item {
+      margin-bottom: 8px;
+    }
+    .header-logo {
+      img {
+        height: 30px;
+        margin: 16px;
+      }
+    }
+    .action.account {
+      width: 100%;
+      display: flex;
+      align-items: center;
+    }
+  }
+}

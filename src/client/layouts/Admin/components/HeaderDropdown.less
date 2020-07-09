@@ -1,0 +1,46 @@
+.headerDropdown > * {
+  background-color: #fff;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.15);
+  border-radius: 4px;
+}
+
+.menu {
+  :global(.anticon) {
+    margin-right: 8px;
+  }
+  :global(.ant-dropdown-menu-item) {
+    min-width: 160px;
+  }
+}
+
+.action {
+  cursor: pointer;
+  float: right;
+  padding: 0 16px;
+  display: block;
+  color: white;
+  transition: all 0.3s;
+  height: 100%;
+  > i {
+    vertical-align: middle;
+    color: fade(#000, 65%);
+  }
+  &:hover {
+    background: rgba(0, 0, 0, 0.024);
+  }
+  &:global(.opened) {
+    background: rgba(0, 0, 0, 0.024);
+  }
+}
+
+.account {
+}
+
+@media screen and (max-width: 480px) {
+  .headerDropdown {
+    width: 100% !important;
+  }
+  .headerDropdown > * {
+    border-radius: 0 !important;
+  }
+}
