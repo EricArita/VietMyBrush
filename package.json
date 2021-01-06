@@ -34,7 +34,7 @@
     "ant-design-pro": "2.1.1",
     "antd": "^4.1.2",
     "apple-signin": "^1.0.9",
-    "axios": "^0.19.2",
+    "axios": "^0.21.1",
     "body-parser": "1.18.3",
     "braintree": "^2.21.0",
     "bunyan": "1.8.12",
